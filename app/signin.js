@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp , widthPercentageToDP as wp} from "react-native-responsive-screen";
 import Componenttext from "../component/componenttext";
 import Loding from "../component/loding";
 import { useAuth } from '../contextt/authContext';
