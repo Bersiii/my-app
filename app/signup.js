@@ -2,7 +2,7 @@ import { Octicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useRef, useState } from "react";
-import { useAuth } from '../contextt/authContext';
+import { useAuth } from "../contextt/authContext";
 import Componenttext from "../component/componenttext";
 import {
   Alert,
@@ -13,7 +13,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
 import Loding from "../component/loding";
 
@@ -50,7 +53,6 @@ const Signin = () => {
     if (!response.success) {
       Alert.alert("Sign Up", response.msg);
     }
-
   };
 
   return (
