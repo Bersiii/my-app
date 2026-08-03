@@ -10,7 +10,6 @@ import { Feather, AntDesign } from "@expo/vector-icons";
 import {
   Menu,
   MenuOptions,
-  MenuOption,
   MenuTrigger,
 } from "react-native-popup-menu";
 import { MenuItem } from "./commonMenu";
