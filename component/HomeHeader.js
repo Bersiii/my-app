@@ -1,23 +1,44 @@
 import "../global.css";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp , widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { View, Text, Platform, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuth } from "../contextt/authContext";
+import { useRouter } from "expo-router";
+import { Feather, AntDesign } from "@expo/vector-icons";
+
 import {
   Menu,
   MenuOptions,
   MenuOption,
   MenuTrigger,
 } from "react-native-popup-menu";
+import { MenuItem } from "./commonMenu";
 
 const ios = Platform.OS === "ios";
 const HomeHeader = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { top } = useSafeAreaInsets();
+  const router = useRouter();
   const [imgSource, setImgSource] = useState(
     require("../assets/images/bersi1.png"),
   );
+
+  const handleProfile = () => {
+    try {
+      if (user) {
+        router.push("/profile");
+      } else {
+        router.push("/signup");
+      }
+    } catch (e) {
+      console.log("handleProfile navigation error:", e);
+    }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+  };
 
   useEffect(() => {
     if (user?.profileUrl) {
@@ -32,9 +53,25 @@ const HomeHeader = () => {
   return (
     <View
       style={{ paddingTop: ios ? top : 0 }}
-      className="bg-indigo-400 flex-row justify-between items-center a px-4 h-28  rounded-b-3xl"
+      className="bg-slate-700 flex-row justify-between items-center a px-4 h-28  rounded-b-3xl"
     >
-      <Text className="text-black font-bold text-2xl ">Chats</Text>
+      <View
+        style={{
+          paddingHorizontal: wp(2),
+          paddingVertical: hp(0.2),
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          borderRadius: 10,
+          marginVertical: hp(0.5),
+          marginHorizontal: wp(2),
+          backgroundColor: "#f8fafc",
+          borderWidth: 1,
+          borderColor: "#e2e8f0",
+        }}
+      >
+        <Text className="text-black font-bold text-2xl ">Chats</Text>
+      </View>
 
       <View>
         <Menu>
@@ -59,15 +96,33 @@ const HomeHeader = () => {
               accessibilityLabel="profile-image"
             />
           </MenuTrigger>
-          <MenuOptions>
-            <MenuOption onSelect={() => alert(`Save`)} text="Save" />
-            <MenuOption onSelect={() => alert(`Delete`)}>
-              <Text style={{ color: "red" }}>Delete</Text>
-            </MenuOption>
-            <MenuOption
-              onSelect={() => alert(`Not called`)}
-              disabled={true}
-              text="Disabled"
+          <MenuOptions
+            customStyles={{
+              optionsContainer: {
+                padding: 0,
+                borderRadius: 28,
+                overflow: "hidden",
+                width: hp(20),
+                backgroundColor: "bg-slate-700",
+              },
+            }}
+          >
+            <MenuItem
+              item
+              text="Profile"
+              action={handleProfile}
+              value={null}
+              icon={<Feather name="user" size={hp(2.5)} color={"#2E5D9F"} />}
+            />
+            <Divider />
+            <MenuItem
+              item
+              text="Sign Out"
+              action={handleLogout}
+              value={null}
+              icon={
+                <AntDesign name="logout" size={hp(2.5)} color={"#2E5D9F"} />
+              }
             />
           </MenuOptions>
         </Menu>
@@ -77,3 +132,7 @@ const HomeHeader = () => {
 };
 
 export default HomeHeader;
+
+const Divider = () => {
+  return <View className="h-[1px] bg-gray-300 " />;
+};
