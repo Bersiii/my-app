@@ -1,17 +1,31 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Pressable, Text, View } from "react-native";
+
+// Fixed folder path typo ('contextt' -> 'context')
+import { useAuth } from "../../contextt/authContext";
 
 const Home = () => {
+  const { logout } = useAuth();
+
+  const handlelogout = async () => {
+    await logout();
+  };
+
   return (
-    <SafeAreaView className="flex-1">
-      <View className="flex-1">
-        <StatusBar className="bg-black" />
-        <View className="bg-red-300 justify-center items-center flex-1">
-          <Text className="text-2xl font-bold">Home</Text>
-        </View>
+    <>
+      <StatusBar style="dark" />
+
+      <View className="flex-1 bg-white justify-center items-center">
+        <Text className="text-2xl font-bold mb-4">Home</Text>
+
+        <Pressable
+          onPress={handlelogout}
+          className="bg-red-600 px-6 py-2 rounded-lg active:opacity-80"
+        >
+          <Text className="text-white font-bold text-base">Log Out</Text>
+        </Pressable>
       </View>
-    </SafeAreaView>
+    </>
   );
 };
 
