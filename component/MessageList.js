@@ -4,7 +4,7 @@ import React from 'react'
 const MessageList = () => {
   return (
     <View>
-      <Text>MessageList</Text>
+      
     </View>
   )
 }
