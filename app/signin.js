@@ -33,12 +33,22 @@ const Signin = () => {
     setLoading(false);
 
     console.log("got result: ", response);
+
     if (!response.success) {
-      let msg = response.msg;
+      let msg = response.msg || "";
+
       if (msg.includes("(auth/invalid-credential)")) {
         msg = "Invalid email or password.";
+      } else if (msg.includes("(auth/invalid-email)")) {
+        msg = "Invalid email format.";
+      } else if (msg.includes("(auth/email-already-in-use)")) {
+        msg = "This email is already registered.";
+      } else if (msg.includes("(auth/weak-password)")) {
+        msg = "Password should be at least 6 characters.";
       }
-      Alert.alert("Sign In",  msg);
+
+      Alert.alert("Sign Up", msg);
+      return; // Stop execution on failure
     }
   };
 

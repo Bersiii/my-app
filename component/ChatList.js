@@ -14,10 +14,9 @@ const ChatList = ({ users }) => {
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <ChatItem
-            user={item}
-            Index={index}
-            noBorder={index + 1 === users.length}
+            item={item}
             router={router}
+            noBorder={index + 1 === users.length}
           />
         )}
       />

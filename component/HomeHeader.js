@@ -1,27 +1,27 @@
-import "../global.css";
-import { heightPercentageToDP as hp , widthPercentageToDP as wp } from "react-native-responsive-screen";
+import React from "react";
 import { View, Text, Platform, Image } from "react-native";
-import React, { useEffect, useState } from "react";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuth } from "../contextt/authContext";
 import { useRouter } from "expo-router";
 import { Feather, AntDesign } from "@expo/vector-icons";
-
-import {
-  Menu,
-  MenuOptions,
-  MenuTrigger,
-} from "react-native-popup-menu";
+import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
 import { MenuItem } from "./commonMenu";
 
 const ios = Platform.OS === "ios";
+const defaultAvatar = require("../assets/images/bersi1.png");
+
 const HomeHeader = () => {
   const { user, logout } = useAuth();
   const { top } = useSafeAreaInsets();
   const router = useRouter();
-  const [imgSource, setImgSource] = useState(
-    require("../assets/images/bersi1.png"),
-  );
+
+  // Compute image source synchronously during render—no useState or useEffect delay
+  const avatarUrl = user?.profileUrl || user?.photoURL;
+  const imageSource = avatarUrl ? { uri: avatarUrl } : defaultAvatar;
 
   const handleProfile = () => {
     try {
@@ -39,20 +39,10 @@ const HomeHeader = () => {
     await logout();
   };
 
-  useEffect(() => {
-    if (user?.profileUrl) {
-      setImgSource({ uri: user.profileUrl });
-    } else if (user?.photoURL) {
-      setImgSource({ uri: user.photoURL });
-    } else {
-      setImgSource(require("../assets/images/bersi1.png"));
-    }
-  }, [user?.profileUrl, user?.photoURL]);
-
   return (
     <View
-      style={{ paddingTop: ios ? top : 0 }}
-      className="bg-slate-700 flex-row justify-between items-center a px-4 h-28  rounded-b-3xl"
+      style={{ paddingTop: ios ? top : top + 10 }}
+      className="bg-slate-700 flex-row justify-between items-center px-4 h-28 rounded-b-3xl"
     >
       <View
         style={{
@@ -69,7 +59,7 @@ const HomeHeader = () => {
           borderColor: "#e2e8f0",
         }}
       >
-        <Text className="text-black font-bold text-2xl ">Chats</Text>
+        <Text className="text-black font-bold text-2xl">Chats</Text>
       </View>
 
       <View>
@@ -82,16 +72,9 @@ const HomeHeader = () => {
                 borderRadius: 100,
                 backgroundColor: "#ddd",
               }}
-              source={imgSource}
+              source={imageSource}
+              defaultSource={defaultAvatar}
               resizeMode="cover"
-              onError={(e) => {
-                console.log(
-                  "Header image failed to load:",
-                  e.nativeEvent?.error || e,
-                );
-                setImgSource(require("../assets/images/bersi1.png"));
-              }}
-              onLoad={() => console.log("Header image loaded")}
               accessibilityLabel="profile-image"
             />
           </MenuTrigger>
@@ -99,15 +82,15 @@ const HomeHeader = () => {
             customStyles={{
               optionsContainer: {
                 padding: 0,
-                borderRadius: 28,
+                borderRadius: 20,
                 overflow: "hidden",
                 width: hp(20),
-                backgroundColor: "bg-slate-700",
+                backgroundColor: "#ffffff",
+                marginTop: hp(6),
               },
             }}
           >
             <MenuItem
-              item
               text="Profile"
               action={handleProfile}
               value={null}
@@ -115,7 +98,6 @@ const HomeHeader = () => {
             />
             <Divider />
             <MenuItem
-              item
               text="Sign Out"
               action={handleLogout}
               value={null}
@@ -133,5 +115,5 @@ const HomeHeader = () => {
 export default HomeHeader;
 
 const Divider = () => {
-  return <View className="h-[1px] bg-gray-300 " />;
+  return <View className="h-[1px] bg-gray-200" />;
 };

@@ -15,7 +15,7 @@
       "adaptiveIcon": {
         "backgroundColor": "brown",
         "foregroundImage": "./assets/images/logo.png",
-        "backgroundImage": "./assets/images/bg.png",
+        "backgroundImage": "./assets/images/bersi1.png",
         "monochromeImage": "./assets/images/logo.png"
       },
       "edgeToEdgeEnabled": true,
