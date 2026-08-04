@@ -13,10 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import Loding from "../component/loding";
 
@@ -52,7 +49,10 @@ const Signin = () => {
     console.log("got result: ", response);
     if (!response.success) {
       Alert.alert("Sign Up", response.msg);
+      return;
     }
+
+    route.replace("home");
   };
 
   return (

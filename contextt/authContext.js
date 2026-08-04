@@ -5,10 +5,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { auth, db } from "../firbaseconfig"; 
+import { auth, db } from "../firbaseconfig";
 
 import { doc, getDoc, setDoc } from "firebase/firestore";
-
 
 export const AuthContext = createContext();
 
@@ -36,7 +35,7 @@ export const AuthContextProvider = ({ children }) => {
       const docRef = doc(db, "users", userId);
       const docSnap = await getDoc(docRef);
 
-      if(docSnap.exists()) {
+      if (docSnap.exists()) {
         let data = docSnap.data();
         setUser((prevUser) => ({
           ...prevUser,
@@ -55,7 +54,7 @@ export const AuthContextProvider = ({ children }) => {
       const response = await signInWithEmailAndPassword(auth, email, password);
       setUser(response.user);
       setIsAuthenticated(true);
-      updateUserData(response.user.uid);  
+      updateUserData(response.user.uid);
       return { success: true, data: response.user };
     } catch (e) {
       let msg = e.message;
@@ -89,14 +88,16 @@ export const AuthContextProvider = ({ children }) => {
       );
       console.log("response.user :", response?.user);
 
-     
-
       await setDoc(doc(db, "users", response?.user?.uid), {
         username,
         profileUrl,
         userId: response?.user?.uid,
       });
-      return { success: true, data: response?.user };
+
+      setUser(response.user);
+      setIsAuthenticated(true);
+
+      return { success: true, data: response.user };
     } catch (e) {
       let msg = e.message;
       if (msg.includes("(auth/network-request-failed)")) {
