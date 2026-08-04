@@ -1,13 +1,16 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React from "react";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams , useRouter} from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import ChatHeader from "../../component/chatHeader";
 
 export default function ChatRoom() {
-  const item = useLocalSearchParams();
-  console.log("got item data: ", item);
+  const item = useLocalSearchParams();  
+  const router =useRouter();
   return (
-    <View>
-      <Text>ChatRoom</Text>
+    <View className="flex-1 justify-center items-center bg-white">
+      <StatusBar style="dark"/>
+      <ChatHeader user={item} router={router} />
     </View>
   );
 }
