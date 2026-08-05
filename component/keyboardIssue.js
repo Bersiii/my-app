@@ -7,7 +7,7 @@ const KeyboardIssue = ({ children }) => {
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={ios ? "padding" : "height"}
-      keyboardVerticalOffset={50}
+      keyboardVerticalOffset={90}
     >
       <ScrollView
         style={{ flex: 1 }}

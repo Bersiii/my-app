@@ -10,6 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ImageBackground
 } from "react-native";
 import { heightPercentageToDP as hp , widthPercentageToDP as wp} from "react-native-responsive-screen";
 import Componenttext from "../component/componenttext";
@@ -53,109 +54,113 @@ const Signin = () => {
   };
 
   return (
-    <Componenttext>
-      <StatusBar className="bg-black" />
-      <View className="mt-10  p-4 rounded-lg">
-        <Image
-          source={require("../assets/images/signin.png")}
-          resizeMode="contain"
-          style={{ height: hp(25) }}
-          className="w-full"
-        />
-      </View>
-      <View className="gap-10 p-4 rounded-lg">
-        <Text
-          style={{ fontSize: hp(3), color: "#2E5D9F" }}
-          className="font-bold tracking-wider text-center"
-        >
-          Sign in
-        </Text>
-        <View className="gap-4">
-          <View
-            style={{ height: hp(7) }}
-            className="flex-row gap-4  rounded-2xl px-4 items-center bg-neutral-200"
-          >
-            <Octicons name="mail" size={hp(2.7)} color={"#2E5D9F"}></Octicons>
-            <TextInput
-              onChangeText={(Value) => (emailref.current = Value)}
-              style={{ fontSize: hp(2) }}
-              className=" bg-neutral-200 flex-1 font-bold"
-              placeholder="Enter an email"
-              placeholderTextColor={"gray"}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-          </View>
+    <ImageBackground
+      source={require("../assets/images/download.png")}
+      style={{ flex: 1, width: "100%", height: "100%" }}
+      className="flex-1"
+      resizeMode="cover"
+    >
+      <Componenttext>
+        <StatusBar className="bg-black" />
 
-          <View className="gap-2">
+        <View className="flex-1 justify-center gap-10 p-4 rounded-lg">
+          <Text
+            style={{ fontSize: hp(3), color: "#881337" }}
+            className="font-bold tracking-wider text-center"
+          >
+            Sign in
+          </Text>
+          <View className="gap-4">
             <View
               style={{ height: hp(7) }}
-              className="flex-row gap-4  rounded-2xl px-4 items-center bg-neutral-200"
+              className="flex-row gap-4  rounded-2xl px-5 items-center bg-rose-100  ml-8 mr-6 rounded-full"
             >
-              <Octicons name="lock" size={hp(2.7)} color={"#2E5D9F"}></Octicons>
+              <Octicons name="mail" size={hp(2.7)} color={"#9f1239"}></Octicons>
               <TextInput
-                onChangeText={(Value) => (passwordref.current = Value)}
+                onChangeText={(Value) => (emailref.current = Value)}
                 style={{ fontSize: hp(2) }}
-                className=" bg-neutral-200 flex-1 font-bold"
-                placeholder="Password"
+                className=" bg-rose-100 flex-1 font-bold"
+                placeholder="Enter an email"
                 placeholderTextColor={"gray"}
-                secureTextEntry
+                keyboardType="email-address"
+                autoCapitalize="none"
               />
             </View>
-            <Text
-              style={{ fontSize: hp(1.8) }}
-              className="text-right font-bold text-neutral-500"
-            >
-              Forgot password?
-            </Text>
-          </View>
 
-          <View className="justify-center items-center gap-4 mt-10">
-            <View>
-              {loading ? (
-                <View
-                  className="justify-center items-center"
-                  style={{ width: hp(10), height: hp(8) }}
-                >
-                  <Loding size={hp(10)} />
-                </View>
-              ) : (
-                <TouchableOpacity
-                  style={{ backgroundColor: "#2E5D9F" }}
-                  className="px-20 py-2 rounded-2xl"
-                  activeOpacity={0.7}
-                  onPress={handlelogin}
-                >
-                  <Text
-                    style={{ fontSize: hp(2) }}
-                    className="font-bold text-white  "
-                  >
-                    Sign in
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </View>
-
-            <View className="flex-row">
+            <View className="gap-2">
+              <View
+                style={{ height: hp(7) }}
+                className="flex-row gap-4  rounded-2xl px-4 items-center bg-rose-100 rounded-full ml-8 mr-6"
+              >
+                <Octicons
+                  name="lock"
+                  size={hp(2.7)}
+                  color={"#9f1239"}
+                ></Octicons>
+                <TextInput
+                  onChangeText={(Value) => (passwordref.current = Value)}
+                  style={{ fontSize: hp(2) }}
+                  className=" bg-rose-100  flex-1 font-bold"
+                  placeholder="Password"
+                  placeholderTextColor={"gray"}
+                  secureTextEntry
+                />
+              </View>
               <Text
                 style={{ fontSize: hp(1.8) }}
-                className="font-semibold text-neutral-500"
+                className="text-right font-bold text-rose-700"
               >
-                Don't have an account ?
+                Forgot password?
               </Text>
-              <Pressable onPress={() => route.push("signup")}>
+            </View>
+
+            <View className="justify-center items-center gap-4 mt-10">
+              <View>
+                {loading ? (
+                  <View
+                    className="justify-center items-center"
+                    style={{ width: hp(10), height: hp(8) }}
+                  >
+                    <Loding size={hp(10)} />
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    style={{ backgroundColor: "#9f1239" }}
+                    className="px-20 py-2 rounded-2xl"
+                    activeOpacity={0.7}
+                    onPress={handlelogin}
+                  >
+                    <Text
+                      style={{ fontSize: hp(2) }}
+                      className="font-bold text-white  "
+                    >
+                      Sign in
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+
+              <View className="flex-row">
                 <Text
-                  style={{ fontSize: hp(1.9), color: "#2E5D9F" }}
-                  className="font-bold "
+                  style={{ fontSize: hp(1.8) }}
+                  className="font-semibold text-rose-700"
                 >
-                  Sign up
+                  Don't have an account ?
                 </Text>
-              </Pressable>
+                <Pressable onPress={() => route.push("signup")}>
+                  <Text
+                    style={{ fontSize: hp(1.9), color: "#881337" }}
+                    className="font-bold "
+                  >
+                    Sign up
+                  </Text>
+                </Pressable>
+              </View>
             </View>
           </View>
         </View>
-      </View>
-    </Componenttext>
+      </Componenttext>
+    </ImageBackground>
   );
 };
 

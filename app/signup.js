@@ -69,182 +69,184 @@ const Signup = () => {
   };
 
   return (
-    <Componenttext>
-      <StatusBar style="dark" />
+    <View className="flex-1" style={{ backgroundColor: "#FCD8CD" }}>
+      <Componenttext>
+        <StatusBar style="dark" />
 
-      <View className="mt-6 p-4 rounded-lg">
-        <Image
-          source={require("../assets/images/signup.png")}
-          resizeMode="contain"
-          style={{ height: hp(18) }}
-          className="w-full"
-        />
-      </View>
+        <View className="mt-6 p-4 rounded-lg">
+          {/* <Image
+            source={require("../assets/images/signup.png")}
+            resizeMode="contain"
+            style={{ height: hp(18) }}
+            className="w-full"
+          /> */}
+        </View>
 
-      <View className="gap-6 p-3 rounded-lg">
-        <Text
-          style={{ fontSize: hp(3), color: "#2E5D9F" }}
-          className="font-bold tracking-wider text-center"
-        >
-          Sign Up
-        </Text>
-
-        <View className="gap-4">
-          {/* Username Input */}
-          <View
-            style={{ height: hp(7) }}
-            className="flex-row gap-4 rounded-2xl px-4 items-center bg-neutral-200"
+        <View className="gap-6 p-3 rounded-lg">
+          <Text
+            style={{ fontSize: hp(3), color: "#831843" }}
+            className="font-bold tracking-wider text-center"
           >
-            <Octicons name="person" size={hp(2.7)} color={"#2E5D9F"} />
-            <TextInput
-              onChangeText={(value) => (usernameref.current = value)}
-              style={{ fontSize: hp(2) }}
-              className="bg-neutral-200 flex-1 font-bold"
-              placeholder="UserName"
-              placeholderTextColor={"gray"}
-            />
-          </View>
+            Sign Up
+          </Text>
 
-          {/* Email Input */}
-          <View
-            style={{ height: hp(7) }}
-            className="flex-row gap-4 rounded-2xl px-4 items-center bg-neutral-200"
-          >
-            <Octicons name="mail" size={hp(2.7)} color={"#2E5D9F"} />
-            <TextInput
-              onChangeText={(value) => (emailref.current = value)}
-              style={{ fontSize: hp(2) }}
-              className="bg-neutral-200 flex-1 font-bold"
-              placeholder="Enter an email"
-              placeholderTextColor={"gray"}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-          </View>
-
-          {/* Password Input */}
-          <View
-            style={{ height: hp(7) }}
-            className="flex-row gap-4 rounded-2xl px-4 items-center bg-neutral-200"
-          >
-            <Octicons name="lock" size={hp(2.7)} color={"#2E5D9F"} />
-            <TextInput
-              onChangeText={(value) => (passwordref.current = value)}
-              style={{ fontSize: hp(2) }}
-              className="bg-neutral-200 flex-1 font-bold"
-              placeholder="Password"
-              placeholderTextColor={"gray"}
-              secureTextEntry
-            />
-          </View>
-
-          {/* Avatar Picker Component */}
-          <View className="gap-3 my-2">
-            <View className="flex-row items-center justify-between px-1">
-              <Text className="text-xs font-bold uppercase tracking-wider text-neutral-400">
-                Choose an avatar
-              </Text>
-              {selectedAvatar && (
-                <Text
-                  style={{ color: "#2E5D9F" }}
-                  className="text-xs font-medium"
-                >
-                  Selected
-                </Text>
-              )}
-            </View>
-
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ gap: 14, paddingHorizontal: 4 }}
-              className="py-1"
+          <View className="gap-4">
+            {/* Username Input */}
+            <View
+              style={{ height: hp(7) }}
+              className="flex-row gap-4 rounded-2xl px-4 items-center bg-neutral-100 "
             >
-              {avatarOptions.map((avatar) => {
-                const isSelected = selectedAvatar === avatar;
-
-                return (
-                  <Pressable
-                    key={avatar}
-                    onPress={() => setSelectedAvatar(avatar)}
-                    className="relative items-center justify-center active:scale-95"
-                  >
-                    <View
-                      className={`rounded-full p-1 ${
-                        isSelected ? "bg-[#2E5D9F]" : "bg-neutral-200"
-                      }`}
-                    >
-                      <Image
-                        source={{ uri: avatar }}
-                        className={`w-14 h-14 rounded-full border-2 ${
-                          isSelected ? "border-white" : "border-transparent"
-                        }`}
-                      />
-                    </View>
-
-                    {isSelected && (
-                      <View
-                        style={{ backgroundColor: "#2E5D9F" }}
-                        className="absolute -bottom-1 -right-1 rounded-full w-5 h-5 items-center justify-center border-2 border-white"
-                      >
-                        <Text className="text-[10px] text-white font-bold">
-                          ✓
-                        </Text>
-                      </View>
-                    )}
-                  </Pressable>
-                );
-              })}
-            </ScrollView>
-          </View>
-
-          {/* Action Buttons */}
-          <View className="justify-center items-center gap-4 mt-6">
-            <View>
-              {loading ? (
-                <View
-                  className="justify-center items-center"
-                  style={{ width: hp(10), height: hp(8) }}
-                >
-                  <Loding size={hp(10)} />
-                </View>
-              ) : (
-                <TouchableOpacity
-                  style={{ backgroundColor: "#2E5D9F" }}
-                  className="px-20 py-3 rounded-2xl"
-                  activeOpacity={0.7}
-                  onPress={handleregster}
-                >
-                  <Text
-                    style={{ fontSize: hp(2) }}
-                    className="font-bold text-white text-center"
-                  >
-                    Sign Up
-                  </Text>
-                </TouchableOpacity>
-              )}
+              <Octicons name="person" size={hp(2.7)} color={"#9D174D"} />
+              <TextInput
+                onChangeText={(value) => (usernameref.current = value)}
+                style={{ fontSize: hp(2) }}
+                className="bg-neutral-100 flex-1 font-bold"
+                placeholder="UserName"
+                placeholderTextColor={"#9F1239"}
+              />
             </View>
 
-            <View className="flex-row gap-1 items-center">
-              <Text
-                style={{ fontSize: hp(1.8) }}
-                className="font-semibold text-neutral-500"
-              >
-                Already have an account?
-              </Text>
-              <Pressable onPress={() => route.push("signin")}>
-                <Text
-                  style={{ fontSize: hp(1.9), color: "#2E5D9F" }}
-                  className="font-bold ml-1"
-                >
-                  Sign In
+            {/* Email Input */}
+            <View
+              style={{ height: hp(7) }}
+              className="flex-row gap-4 rounded-2xl px-4 items-center bg-neutral-100"
+            >
+              <Octicons name="mail" size={hp(2.7)} color={"#9D174D"} />
+              <TextInput
+                onChangeText={(value) => (emailref.current = value)}
+                style={{ fontSize: hp(2) }}
+                className="bg-neutral-100 flex-1 font-bold"
+                placeholder="Enter an email"
+                placeholderTextColor={"#9F1239"}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            </View>
+
+            {/* Password Input */}
+            <View
+              style={{ height: hp(7) }}
+              className="flex-row gap-4 rounded-2xl px-4 items-center bg-neutral-100"
+            >
+              <Octicons name="lock" size={hp(2.7)} color={"#9D174D"} />
+              <TextInput
+                onChangeText={(value) => (passwordref.current = value)}
+                style={{ fontSize: hp(2) }}
+                className="bg-neutral-100 flex-1 font-bold"
+                placeholder="Password"
+                placeholderTextColor={"#9F1239"}
+                secureTextEntry
+              />
+            </View>
+
+            {/* Avatar Picker Component */}
+            <View className="gap-3 my-2">
+              <View className="flex-row items-center justify-between px-1">
+                <Text className="text-xs font-bold uppercase tracking-wider text-slate-600">
+                  Choose an avatar
                 </Text>
-              </Pressable>
+                {selectedAvatar && (
+                  <Text
+                    style={{ color: "#831843" }}
+                    className="text-xs font-medium"
+                  >
+                    Selected
+                  </Text>
+                )}
+              </View>
+
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ gap: 14, paddingHorizontal: 4 }}
+                className="py-1"
+              >
+                {avatarOptions.map((avatar) => {
+                  const isSelected = selectedAvatar === avatar;
+
+                  return (
+                    <Pressable
+                      key={avatar}
+                      onPress={() => setSelectedAvatar(avatar)}
+                      className="relative items-center justify-center active:scale-95"
+                    >
+                      <View
+                        className={`rounded-full p-1 ${
+                          isSelected ? "bg-[#2E5D9F]" : "bg-neutral-200"
+                        }`}
+                      >
+                        <Image
+                          source={{ uri: avatar }}
+                          className={`w-14 h-14 rounded-full border-2 ${
+                            isSelected ? "border-white" : "border-transparent"
+                          }`}
+                        />
+                      </View>
+
+                      {isSelected && (
+                        <View
+                          style={{ backgroundColor: "#2E5D9F" }}
+                          className="absolute -bottom-1 -right-1 rounded-full w-5 h-5 items-center justify-center border-2 border-white"
+                        >
+                          <Text className="text-[10px] text-white font-bold">
+                            ✓
+                          </Text>
+                        </View>
+                      )}
+                    </Pressable>
+                  );
+                })}
+              </ScrollView>
+            </View>
+
+            {/* Action Buttons */}
+            <View className="justify-center items-center gap-4 mt-6">
+              <View>
+                {loading ? (
+                  <View
+                    className="justify-center items-center"
+                    style={{ width: hp(10), height: hp(8) }}
+                  >
+                    <Loding size={hp(10)} />
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    style={{ backgroundColor: "#80232C" }}
+                    className="px-20 py-3 rounded-2xl"
+                    activeOpacity={0.7}
+                    onPress={handleregster}
+                  >
+                    <Text
+                      style={{ fontSize: hp(2) }}
+                      className="font-bold text-white text-center"
+                    >
+                      Sign Up
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+
+              <View className="flex-row gap-1 items-center">
+                <Text
+                  style={{ fontSize: hp(1.8) }}
+                  className="font-semibold text-rose-700"
+                >
+                  Already have an account?
+                </Text>
+                <Pressable onPress={() => route.push("signin")}>
+                  <Text
+                    style={{ fontSize: hp(1.9), color: "#831843" }}
+                    className="font-bold ml-1"
+                  >
+                    Sign In
+                  </Text>
+                </Pressable>
+              </View>
             </View>
           </View>
         </View>
-      </View>
-    </Componenttext>
+      </Componenttext>
+    </View>
   );
 };
 

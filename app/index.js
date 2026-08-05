@@ -1,16 +1,15 @@
-import { ActivityIndicator, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ActivityIndicator, View, ImageBackground } from "react-native";
 
-
-
-export default function Starterpage(){
+export default function Starterpage() {
   return (
-    
-      <View className="flex-1 justify-center items-center bg-slate-600">
-        <ActivityIndicator size="large" color="#22c55e"/>
+    <ImageBackground
+      source={require("../assets/images/download.png")}
+      className="flex-1"
+      resizeMode="cover"
+    >
+      <View className="flex-1 justify-center items-center">
+        <ActivityIndicator size="large" color="#22c55e" />
       </View>
-    
+    </ImageBackground>
   );
-};
-
-
+}
