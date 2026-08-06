@@ -3,7 +3,7 @@ import { ActivityIndicator, View, ImageBackground } from "react-native";
 export default function Starterpage() {
   return (
     <ImageBackground
-      source={require("../assets/images/download.png")}
+      source={require("../assets/images/download1.jpg")}
       className="flex-1"
       resizeMode="cover"
     >

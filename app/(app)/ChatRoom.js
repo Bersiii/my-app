@@ -101,19 +101,24 @@ export default function ChatRoom() {
         <StatusBar style="dark" />
         <ChatHeader user={item} router={router} />
         <View className="border-b border-gray-300" />
-
-        <View className="flex-1">
+        <View className="flex-1" style={{ flexShrink: 1 }}>
           <MessageList messages={messages} currentUser={user} />
         </View>
-
-        <View className="px-3 pb-3 pt-2 bg-neutral-100">
+        <View
+          className="px-3 pb-3 pt-2 bg-neutral-100"
+          style={{ flexShrink: 0 }}
+        >
           <View className="flex-row items-center justify-between bg-white border border-neutral-300 rounded-full px-2 py-2">
             <TextInput
               placeholder="Type message..."
               className="flex-1 mr-2"
               value={text}
               onChangeText={setText}
-              multiline={false}
+              multiline={true}
+              maxLength={500}
+              blurOnSubmit={false}
+              returnKeyType="default"
+              style={{ maxHeight: hp(15), paddingVertical: 6 }}
             />
             <TouchableOpacity
               onPress={handleSendMessage}

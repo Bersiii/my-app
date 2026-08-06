@@ -3,6 +3,24 @@ import React from "react";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const ChatItem = ({ item, router, noBorder }) => {
+  const formatMessageTime = (timestamp) => {
+    if (!timestamp) return "";
+
+    const date = timestamp?.toDate ? timestamp.toDate() : new Date(timestamp);
+    const now = new Date();
+
+    if (date.toDateString() === now.toDateString()) {
+      return date.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+      });
+    }
+
+    return date.toLocaleDateString([], {
+      month: "short",
+      day: "numeric",
+    });
+  };
 
   const OpenChatRoom = () => {
     router.push({ pathname: "/ChatRoom", params: item });
@@ -36,7 +54,9 @@ const ChatItem = ({ item, router, noBorder }) => {
             {item?.username || "User"}
           </Text>
           {/* Timestamp */}
-          <Text className="text-xs text-neutral-500">12:30 PM</Text>
+          <Text className="text-xs text-neutral-500">
+            {formatMessageTime(item?.lastMessageTime)}
+          </Text>
         </View>
 
         {/* Last Message */}
@@ -44,7 +64,7 @@ const ChatItem = ({ item, router, noBorder }) => {
           className="text-sm text-neutral-500 font-medium"
           numberOfLines={1}
         >
-          Last text message...
+          {item?.lastMessageText || "No messages yet"}
         </Text>
       </View>
     </TouchableOpacity>
