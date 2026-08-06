@@ -1,13 +1,33 @@
-import React from "react";
-import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
-
-const ios = Platform.OS === "ios";
+import React, { useEffect, useState } from "react";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  View,
+  AppState,
+} from "react-native";
 
 const KeyboardIssue = ({ children, keyboardVerticalOffset = 90 }) => {
+  const [appStateKey, setAppStateKey] = useState(0);
+
+  // Force remount when app returns from background to recalculate keyboard listeners
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      if (nextAppState === "active") {
+        setAppStateKey((prev) => prev + 1);
+      }
+    });
+
+    return () => subscription.remove();
+  }, []);
+
   return (
     <KeyboardAvoidingView
+      key={appStateKey}
       style={{ flex: 1 }}
-      behavior={ios ? "padding" : undefined}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={keyboardVerticalOffset}
     >
       <ScrollView
@@ -16,9 +36,10 @@ const KeyboardIssue = ({ children, keyboardVerticalOffset = 90 }) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
-        keyboardDismissMode="on-drag"
       >
-        {children}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={{ flex: 1 }}>{children}</View>
+        </TouchableWithoutFeedback>
       </ScrollView>
     </KeyboardAvoidingView>
   );
