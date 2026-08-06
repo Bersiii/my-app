@@ -19,6 +19,9 @@ import {
   getDoc,
   collection,
   addDoc,
+  query,
+  onSnapshot,
+  orderBy
 } from "firebase/firestore";
 import { db } from "../../firbaseconfig";
 
@@ -30,10 +33,22 @@ export default function ChatRoom() {
   const [text, setText] = useState("");
 
   useEffect(() => {
-    if (user?.uid && item?.userId) {
-      CreateRoomIfNotExist();
-    }
-  }, [user, item]);
+   CreateRoomIfNotExist();
+
+    let roomId = getRoomId(user?.userId, item?.userId);
+    const docRef = doc(db, "rooms", roomId);
+    const messagesRef = collection(docRef, "messages");
+    const q = query(messagesRef, orderBy("createdAt", "asc"));
+
+    let unsub = onSnapshot(q, (snapshot) => {
+      let allMessages = snapshot.docs.map((doc) => {
+        return doc.data();
+      });
+      setMessages([...allMessages]);
+    });
+
+    return unsub;
+  }, []);
 
   const CreateRoomIfNotExist = async () => {
     if (!user?.uid || !item?.userId) return;
@@ -97,7 +112,7 @@ export default function ChatRoom() {
         <View className="border-b border-gray-300" />
         <View className="flex-1 bg-neutral-100 justify-between overflow-visible">
           <View className="flex1">
-            <MessageList messages={messages} />
+            <MessageList messages={messages} currentUser={user} />
           </View>
         </View>
         <View className="pt2" style={{ marginBottom: hp(2.7) }}>
