@@ -74,6 +74,8 @@ export default function ChatRoom() {
     const message = text.trim();
     if (!message) return;
 
+    setText("");
+
     try {
       await createRoomIfNotExist();
 
@@ -88,29 +90,30 @@ export default function ChatRoom() {
         senderName: user?.username || "",
         createdAt: Timestamp.fromDate(new Date()),
       });
-        setText("");
     } catch (err) {
+      setText(message);
       Alert.alert("Message", err.message);
     }
   };
   return (
     <KeyboardIssue>
-      <View className="flex-1">
+      <View className="flex-1 bg-neutral-100">
         <StatusBar style="dark" />
         <ChatHeader user={item} router={router} />
         <View className="border-b border-gray-300" />
-        <View className="flex-1 bg-neutral-100 justify-between overflow-visible">
-          <View className="flex1">
-            <MessageList messages={messages} currentUser={user} />
-          </View>
+
+        <View className="flex-1">
+          <MessageList messages={messages} currentUser={user} />
         </View>
-        <View className="pt2" style={{ marginBottom: hp(2.7) }}>
-          <View className="flex-row justify-between bg-white border p-2 border-neutral-300 rounded-full p">
+
+        <View className="px-3 pb-3 pt-2 bg-neutral-100">
+          <View className="flex-row items-center justify-between bg-white border border-neutral-300 rounded-full px-2 py-2">
             <TextInput
               placeholder="Type message..."
               className="flex-1 mr-2"
               value={text}
               onChangeText={setText}
+              multiline={false}
             />
             <TouchableOpacity
               onPress={handleSendMessage}
