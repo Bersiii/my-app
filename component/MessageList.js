@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import React from "react";
 import MessageItem from "./MessageItem";
 
@@ -19,6 +19,4 @@ export default function MessageList({ messages, currentUser }) {
       })}
     </ScrollView>
   );
-};
-
-
+}

@@ -1,12 +1,32 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from "react-native";
+import React from "react";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
-const MessageItem = () => {
+export default function MessageItem({ message, currentUser }) {
+  const isMyMessage =
+    currentUser?.uid === message?.userId ||
+    currentUser?.userId === message?.userId;
+
+  if (isMyMessage) {
+    return (
+      <View className="flex-row justify-end mb-3 mr-3">
+        <View style={{ maxWidth: wp(80) }}>
+          <View className="self-end p-3 px-4 rounded-2xl bg-white border border-neutral-200">
+            <Text style={{ fontSize: hp(1.9) }}>{message?.text}</Text>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
   return (
-    <View>
-      <Text>MessageItem</Text>
+    <View style={{ maxWidth: wp(80) }} className="ml-3 mb-3">
+      <View className="self-start p-3 px-4 rounded-2xl bg-indigo-100 border border-indigo-200">
+        <Text style={{ fontSize: hp(1.9) }}>{message?.text}</Text>
+      </View>
     </View>
-  )
+  );
 }
-
-export default MessageItem
