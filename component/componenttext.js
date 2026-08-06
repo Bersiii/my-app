@@ -1,25 +1,34 @@
-import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import React from "react";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 
 const ios = Platform.OS === "ios";
 
-const Componenttext = ({ children }) => {
+const KeyboardIssue = ({ children, keyboardVerticalOffset = 90 }) => {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      behavior={ios ? "padding" : "height"}
-      keyboardVerticalOffset={ios ? 40 : 20}
+      behavior={ios ? "padding" : undefined}
+      keyboardVerticalOffset={keyboardVerticalOffset}
     >
-      <ScrollView
-        style={{ flex: 1 }}
-        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
-        keyboardShouldPersistTaps="handled"
-        bounces={false}
-        showsVerticalScrollIndicator={false}
-      >
-        {children}
-      </ScrollView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView
+          style={{ flex: 1 }}
+          bounces={false}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          {children}
+        </ScrollView>
+      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 };
 
-export default Componenttext;
+export default KeyboardIssue;

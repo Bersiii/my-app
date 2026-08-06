@@ -82,7 +82,7 @@ const Signup = () => {
           /> */}
         </View>
 
-        <View className="gap-6 p-3 rounded-lg">
+        <View className="gap-6 p-3 rounded-lg  mt-28">
           <Text
             style={{ fontSize: hp(3), color: "#831843" }}
             className="font-bold tracking-wider text-center"

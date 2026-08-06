@@ -1,5 +1,5 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import React, { use, useEffect, useState } from "react";
+import { View, TextInput, TouchableOpacity, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import ChatHeader from "../../component/chatHeader";
@@ -12,7 +12,14 @@ import {
 import { Feather } from "@expo/vector-icons";
 import { useAuth } from "../../contextt/authContext";
 import { getRoomId } from "../../component/common";
-import { doc, setDoc, Timestamp,getDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  Timestamp,
+  getDoc,
+  collection,
+  addDoc,
+} from "firebase/firestore";
 import { db } from "../../firbaseconfig";
 
 export default function ChatRoom() {
@@ -20,13 +27,18 @@ export default function ChatRoom() {
   const { user } = useAuth();
   const router = useRouter();
   const [messages, setMessages] = useState([]);
+  const [text, setText] = useState("");
 
   useEffect(() => {
-    <creatRoomifnoexists/>;
-  }, []);
+    if (user?.uid && item?.userId) {
+      CreateRoomIfNotExist();
+    }
+  }, [user, item]);
 
-  const creatRoomifnoexists = async () => {
-    let roomId = getRoomId(user?.userId, item?.userId);
+  const CreateRoomIfNotExist = async () => {
+    if (!user?.uid || !item?.userId) return;
+
+    let roomId = getRoomId(user.uid, item.userId);
     const roomRef = doc(db, "rooms", roomId);
 
     // 1. ክፍሉ በዳታቤዝ ውስጥ መኖሩን ማረጋገጥ
@@ -40,9 +52,46 @@ export default function ChatRoom() {
       });
     }
   };
+
+  const handleSendMessage = async () => {
+    if (!user?.uid || !item?.userId) {
+      Alert.alert("Send failed", "User or chat data is missing.");
+      return;
+    }
+
+    const message = text.trim();
+    if (!message) return;
+
+    try {
+      const roomId = getRoomId(user.uid, item.userId);
+      const roomRef = doc(db, "rooms", roomId);
+      const roomSnap = await getDoc(roomRef);
+
+      if (!roomSnap.exists()) {
+        await setDoc(roomRef, {
+          roomId,
+          createdAt: Timestamp.fromDate(new Date()),
+        });
+      }
+
+      const messagesRef = collection(roomRef, "messages");
+      const newDoc = await addDoc(messagesRef, {
+        userId: user.uid,
+        text: message,
+        profileUrl: user?.profileUrl || "",
+        senderName: user?.username || "",
+        createdAt: Timestamp.fromDate(new Date()),
+      });
+
+      console.log("new message id: ", newDoc.id);
+      setText("");
+    } catch (err) {
+      Alert.alert("Message", err.message);
+    }
+  };
   return (
     <KeyboardIssue>
-      <View className="flex-1 bg-white">
+      <View className="flex-1">
         <StatusBar style="dark" />
         <ChatHeader user={item} router={router} />
         <View className="border-b border-gray-300" />
@@ -53,8 +102,14 @@ export default function ChatRoom() {
         </View>
         <View className="pt2" style={{ marginBottom: hp(2.7) }}>
           <View className="flex-row justify-between bg-white border p-2 border-neutral-300 rounded-full p">
-            <TextInput placeholder="Type message..." className="flex-1 mr-2" />
+            <TextInput
+              placeholder="Type message..."
+              className="flex-1 mr-2"
+              value={text}
+              onChangeText={setText}
+            />
             <TouchableOpacity
+              onPress={handleSendMessage}
               activeOpacity={0.7}
               className="bg-neutral-100 p-2.5 rounded-full border border-neutral-200 items-center justify-center"
             >
