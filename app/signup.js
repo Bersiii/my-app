@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import {
   Alert,
   Image,
+  ImageBackground,
   Pressable,
   ScrollView,
   Text,
@@ -69,7 +70,11 @@ const Signup = () => {
   };
 
   return (
-    <View className="flex-1" style={{ backgroundColor: "#FCD8CD" }}>
+    <ImageBackground
+      source={require("../assets/images/download1.jpg")}
+      style={{ flex: 1, width: "100%", height: "100%" }}
+      resizeMode="cover"
+    >
       <Componenttext>
         <StatusBar style="dark" />
 
@@ -82,9 +87,9 @@ const Signup = () => {
           /> */}
         </View>
 
-        <View className="gap-6 p-3 rounded-lg  mt-28">
+        <View className="gap-6 p-3 rounded-lg  mt-48">
           <Text
-            style={{ fontSize: hp(3), color: "#831843" }}
+            style={{ fontSize: hp(3), color: "#000000" }}
             className="font-bold tracking-wider text-center"
           >
             Sign Up
@@ -96,13 +101,13 @@ const Signup = () => {
               style={{ height: hp(7) }}
               className="flex-row gap-4 rounded-2xl px-4 items-center bg-neutral-100 "
             >
-              <Octicons name="person" size={hp(2.7)} color={"#9D174D"} />
+              <Octicons name="person" size={hp(2.7)} color={"#000000"} />
               <TextInput
                 onChangeText={(value) => (usernameref.current = value)}
                 style={{ fontSize: hp(2) }}
                 className="bg-neutral-100 flex-1 font-bold"
                 placeholder="UserName"
-                placeholderTextColor={"#9F1239"}
+                placeholderTextColor={"#94A3B8"}
               />
             </View>
 
@@ -111,13 +116,13 @@ const Signup = () => {
               style={{ height: hp(7) }}
               className="flex-row gap-4 rounded-2xl px-4 items-center bg-neutral-100"
             >
-              <Octicons name="mail" size={hp(2.7)} color={"#9D174D"} />
+              <Octicons name="mail" size={hp(2.7)} color={"#000000"} />
               <TextInput
                 onChangeText={(value) => (emailref.current = value)}
                 style={{ fontSize: hp(2) }}
                 className="bg-neutral-100 flex-1 font-bold"
                 placeholder="Enter an email"
-                placeholderTextColor={"#9F1239"}
+                placeholderTextColor={"#94A3B8"}
                 keyboardType="email-address"
                 autoCapitalize="none"
               />
@@ -128,13 +133,13 @@ const Signup = () => {
               style={{ height: hp(7) }}
               className="flex-row gap-4 rounded-2xl px-4 items-center bg-neutral-100"
             >
-              <Octicons name="lock" size={hp(2.7)} color={"#9D174D"} />
+              <Octicons name="lock" size={hp(2.7)} color={"#000000"} />
               <TextInput
                 onChangeText={(value) => (passwordref.current = value)}
                 style={{ fontSize: hp(2) }}
                 className="bg-neutral-100 flex-1 font-bold"
                 placeholder="Password"
-                placeholderTextColor={"#9F1239"}
+                placeholderTextColor={"#94A3B8"} 
                 secureTextEntry
               />
             </View>
@@ -142,12 +147,12 @@ const Signup = () => {
             {/* Avatar Picker Component */}
             <View className="gap-3 my-2">
               <View className="flex-row items-center justify-between px-1">
-                <Text className="text-xs font-bold uppercase tracking-wider text-slate-600">
+                <Text className="text-xs font-bold uppercase tracking-wider text-white">
                   Choose an avatar
                 </Text>
                 {selectedAvatar && (
                   <Text
-                    style={{ color: "#831843" }}
+                    style={{ color: "#ffffff" }}
                     className="text-xs font-medium"
                   >
                     Selected
@@ -211,7 +216,7 @@ const Signup = () => {
                   </View>
                 ) : (
                   <TouchableOpacity
-                    style={{ backgroundColor: "#80232C" }}
+                    style={{ backgroundColor: "#000000" }}
                     className="px-20 py-3 rounded-2xl"
                     activeOpacity={0.7}
                     onPress={handleregster}
@@ -229,13 +234,13 @@ const Signup = () => {
               <View className="flex-row gap-1 items-center">
                 <Text
                   style={{ fontSize: hp(1.8) }}
-                  className="font-semibold text-rose-700"
+                  className="font-semibold text-slate-400"
                 >
                   Already have an account?
                 </Text>
                 <Pressable onPress={() => route.push("signin")}>
                   <Text
-                    style={{ fontSize: hp(1.9), color: "#831843" }}
+                    style={{ fontSize: hp(1.9), color: "#ffffff" }}
                     className="font-bold ml-1"
                   >
                     Sign In
@@ -246,7 +251,7 @@ const Signup = () => {
           </View>
         </View>
       </Componenttext>
-    </View>
+    </ImageBackground>
   );
 };
 
