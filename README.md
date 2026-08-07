@@ -28,21 +28,3 @@ Bash
 npm install
 
 
-Code snippet
-EXPO_PUBLIC_API_URL=https://your-api-endpoint.com
-EXPO_PUBLIC_SOCKET_SERVER=wss://your-websocket-server.com
-2. Start the Development Server
-Bash
-npx expo start
-In the terminal output, scan the QR code using the Expo Go app (Android) or the native Camera app (iOS), or select an option to run:
-
-Press a for Android emulator
-
-Press i for iOS simulator
-
-Press w for Web browser
-
-
-npm run ios - Opens the project on an iOS simulator.
-
-npm run web - Runs the project in a desktop web browser.
