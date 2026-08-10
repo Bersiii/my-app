@@ -1,11 +1,10 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Stack } from "expo-router";
-import { Entypo, Ionicons, Octicons } from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 
 import {
   heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { Image } from "expo-image";
 

@@ -30,6 +30,7 @@ export const AuthContextProvider = ({ children }) => {
     return unsub;
   }, []);
 
+  
   const updateUserData = async (userId) => {
     try {
       const docRef = doc(db, "users", userId);
@@ -48,6 +49,8 @@ export const AuthContextProvider = ({ children }) => {
       console.error("Error updating user data: ", e);
     }
   };
+
+
 
   const login = async (email, password) => {
     try {
@@ -68,6 +71,8 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+  
+
   const logout = async () => {
     try {
       await signOut(auth);
@@ -86,7 +91,7 @@ export const AuthContextProvider = ({ children }) => {
         email,
         password,
       );
-      console.log("response.user :", response?.user);
+      
 
       await setDoc(doc(db, "users", response?.user?.uid), {
         username,

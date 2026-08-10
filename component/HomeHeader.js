@@ -19,7 +19,7 @@ const HomeHeader = () => {
   const { top } = useSafeAreaInsets();
   const router = useRouter();
 
-  // Compute image source synchronously during render—no useState or useEffect delay
+  
   const avatarUrl = user?.profileUrl || user?.photoURL;
   const imageSource = avatarUrl ? { uri: avatarUrl } : defaultAvatar;
 

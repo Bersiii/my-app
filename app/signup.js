@@ -33,6 +33,8 @@ const avatarOptions = [
 ];
 
 const Signup = () => {
+
+
   const route = useRouter();
   const { register } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -147,17 +149,11 @@ const Signup = () => {
             {/* Avatar Picker Component */}
             <View className="gap-3 my-2">
               <View className="flex-row items-center justify-between px-1">
+
                 <Text className="text-xs font-bold uppercase tracking-wider text-white">
                   Choose an avatar
                 </Text>
-                {selectedAvatar && (
-                  <Text
-                    style={{ color: "#ffffff" }}
-                    className="text-xs font-medium"
-                  >
-                    Selected
-                  </Text>
-                )}
+                
               </View>
 
               <ScrollView

@@ -9,12 +9,12 @@ import {
 
 const ios = Platform.OS === "ios";
 
-const KeyboardIssue = ({ children, keyboardVerticalOffset = 90 }) => {
+const KeyboardIssue = ({ children }) => {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={ios ? "padding" : undefined}
-      keyboardVerticalOffset={keyboardVerticalOffset}
+      keyboardVerticalOffset={90}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView

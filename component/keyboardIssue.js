@@ -12,7 +12,7 @@ import {
 const KeyboardIssue = ({ children, keyboardVerticalOffset = 90 }) => {
   const [appStateKey, setAppStateKey] = useState(0);
 
-  // Force remount when app returns from background to recalculate keyboard listeners
+  
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
       if (nextAppState === "active") {

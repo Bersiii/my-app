@@ -59,7 +59,7 @@ const Home = () => {
 
         onSnapshot(messagesQuery, (snapshot) => {
           const latestMessage = snapshot.docs[0]?.data();
-          const nextText = latestMessage?.text || "No messages yet";
+          const nextText = latestMessage?.text || "Say Hello👋";
           const nextTime = latestMessage?.createdAt || null;
 
           setUsers((prevUsers) =>

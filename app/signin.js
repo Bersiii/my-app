@@ -4,7 +4,6 @@ import { StatusBar } from "expo-status-bar";
 import { useRef, useState } from "react";
 import {
   Alert,
-  Image,
   Pressable,
   Text,
   TextInput,
@@ -12,18 +11,23 @@ import {
   View,
   ImageBackground
 } from "react-native";
-import { heightPercentageToDP as hp , widthPercentageToDP as wp} from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Componenttext from "../component/componenttext";
 import Loding from "../component/loding";
 import { useAuth } from '../contextt/authContext';
 
 const Signin = () => {
+
+  
   const route = useRouter();
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
-
   const emailref = useRef("");
   const passwordref = useRef("");
+
+
+
+
   const handlelogin = async () => {
     if (!emailref.current || !passwordref.current) {
       Alert.alert("Sign in", "Please fill all the fields");
@@ -33,7 +37,7 @@ const Signin = () => {
     let response = await login(emailref.current, passwordref.current);
     setLoading(false);
 
-    console.log("got result: ", response);
+    
 
     if (!response.success) {
       let msg = response.msg || "";
@@ -48,10 +52,12 @@ const Signin = () => {
         msg = "Password should be at least 6 characters.";
       }
 
-      Alert.alert("Sign Up", msg);
+      Alert.alert("Sign In", msg);
       return; // Stop execution on failure
     }
   };
+
+
 
   return (
     <ImageBackground

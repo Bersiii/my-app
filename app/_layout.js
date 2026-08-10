@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { Slot, useRouter, useSegments } from "expo-router";
 import "../global.css";
 import { AuthContextProvider, useAuth } from "../contextt/authContext";
