@@ -57,6 +57,9 @@ const ChatItem = ({ item, router, noBorder }) => {
           <Text className="text-xs text-neutral-500">
             {formatMessageTime(item?.lastMessageTime)}
           </Text>
+          {item?.unread && (
+            <View className="w-3 h-3 bg-indigo-600 rounded-full ml-2" />
+          )}
         </View>
 
         {/* Last Message */}

@@ -57,11 +57,36 @@ const Home = () => {
           limit(1),
         );
 
+        let isFirstSnapshot = true; // Prevents triggering notifications on initial load
+
         onSnapshot(messagesQuery, (snapshot) => {
           const latestMessage = snapshot.docs[0]?.data();
           const nextText = latestMessage?.text || "Say Hello👋";
           const nextTime = latestMessage?.createdAt || null;
 
+          // Check for new incoming messages to flag unread notifications
+          if (!isFirstSnapshot) {
+            snapshot.docChanges().forEach((change) => {
+              if (change.type === "added") {
+                const newMessage = change.doc.data();
+
+                // If the message is from the other user, mark as unread
+                if (newMessage?.senderId && newMessage.senderId !== user.uid) {
+                  setUsers((prevUsers) =>
+                    prevUsers.map((item) =>
+                      item.userId === userData.userId
+                        ? { ...item, unread: true }
+                        : item,
+                    ),
+                  );
+                }
+              }
+            });
+          } else {
+            isFirstSnapshot = false;
+          }
+
+          // Update latest message and timestamp
           setUsers((prevUsers) =>
             prevUsers.map((item) =>
               item.userId === userData.userId
